@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-// import Founder from "./Founder";
-// import Menu from "./Menu";
+import Founder from "./Founder";
+import Menu from "./Menu";
 
 const Home = () => {
   const options = {
@@ -48,9 +48,9 @@ const Home = () => {
         </motion.a>
       </section>
 
-      {/* <Founder /> */}
+      <Founder />
 
-      {/* <Menu /> */}
+      <Menu />
     </>
   );
 };
