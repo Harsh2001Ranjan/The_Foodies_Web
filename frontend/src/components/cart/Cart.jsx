@@ -1,5 +1,5 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import burger1 from "../../assets/burger1.png";
 import burger2 from "../../assets/burger2.png";
 import burger3 from "../../assets/burger3.png";
@@ -66,7 +66,7 @@ const Cart = () => {
             <h4>Total</h4>
             <p>₹{2000 + 2000 * 0.18 + 200}</p>
           </div>
-          {/* <Link to="/shipping">Checkout</Link> */}
+          <Link to="/shipping">Checkout</Link>
         </article>
       </main>
     </section>

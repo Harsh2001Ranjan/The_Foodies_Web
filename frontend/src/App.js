@@ -6,6 +6,7 @@ import "./styles/menu.scss";
 import "./styles/footer.scss";
 import "./styles/contact.scss";
 import "./styles/cart.scss";
+import "./styles/shipping.scss";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/home/Home";
@@ -13,6 +14,7 @@ import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import Contact from "./components/contact/Contact";
 import Cart from "./components/cart/Cart";
+import Shipping from "./components/cart/Shipping";
 function App() {
   return (
     <Router>
@@ -22,9 +24,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/cart" element={<Cart />} />
-        {/* <Route path="/about" element={<About />} />
-        <Route path="/cart" element={<Cart />} />
         <Route path="/shipping" element={<Shipping />} />
+        {/* <Route path="/about" element={<About />} />
+        
         <Route path="/confirmorder" element={<ConfirmOrder />} />
         <Route path="/paymentsuccess" element={<PaymentSuccess />} />
         <Route path="/login" element={<Login />} />
