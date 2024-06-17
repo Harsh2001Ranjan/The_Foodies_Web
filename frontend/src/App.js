@@ -13,6 +13,7 @@ import "./styles/login.scss";
 import "./styles/profile.scss";
 import "./styles/table.scss";
 import "./styles/orderDetails.scss";
+import "./styles/dashboard.scss";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/home/Home";
@@ -27,6 +28,7 @@ import Login from "./components/login/Login";
 import Profile from "./components/profile/Profile";
 import MyOrders from "./components/myOrders/MyOrders";
 import OrderDetails from "./components/myOrders/OrderDetails";
+import Dashboard from "./components/admin/Dashboard";
 
 function App() {
   return (
@@ -44,9 +46,9 @@ function App() {
         <Route path="/me" element={<Profile />} />
         <Route path="/myorders" element={<MyOrders />} />
         <Route path="/order/:id" element={<OrderDetails />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
         {/* <Route path="/about" element={<About />} /> */}
         {/*
-        <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/users" element={<Users />} />
         <Route path="/admin/orders" element={<Orders />} />
 
