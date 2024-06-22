@@ -3,9 +3,9 @@ import express from "express";
 import dotenv from "dotenv";
 import { connectPassport } from "./utils/Provider.js";
 import session from "express-session";
-// import cookieParser from "cookie-parser";
+import cookieParser from "cookie-parser";
 import passport from "passport";
-// import { errorMiddleware } from "./middlewares/errorMiddleware.js";
+import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 // import cors from "cors";
 
 const app = express();
@@ -28,7 +28,7 @@ app.use(
     // },
   })
 );
-// app.use(cookieParser());
+app.use(cookieParser());
 // app.use(express.json());
 // app.use(
 //   urlencoded({
@@ -58,5 +58,5 @@ import userRoute from "./routes/user.js";
 app.use("/api/v1", userRoute);
 // app.use("/api/v1", orderRoute);
 
-// // Using Error Middleware
-// app.use(errorMiddleware);
+// Using Error Middleware
+app.use(errorMiddleware);
