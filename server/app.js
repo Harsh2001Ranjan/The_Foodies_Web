@@ -1,4 +1,4 @@
-//import express, { urlencoded } from "express";
+import { urlencoded } from "express";
 import express from "express";
 import dotenv from "dotenv";
 import { connectPassport } from "./utils/Provider.js";
@@ -20,7 +20,9 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-
+    //chatgpt.......
+    // cookie: { secure: true },
+    //..................
     // cookie: {
     //   secure: process.env.NODE_ENV === "development" ? false : true,
     //   httpOnly: process.env.NODE_ENV === "development" ? false : true,
@@ -29,12 +31,12 @@ app.use(
   })
 );
 app.use(cookieParser());
-// app.use(express.json());
-// app.use(
-//   urlencoded({
-//     extended: true,
-//   })
-// );
+app.use(express.json());
+app.use(
+  urlencoded({
+    extended: true,
+  })
+);
 
 // app.use(
 //   cors({
@@ -53,10 +55,10 @@ connectPassport();
 
 // // Importing Routes
 import userRoute from "./routes/user.js";
-// import orderRoute from "./routes/order.js";
+import orderRoute from "./routes/order.js";
 
 app.use("/api/v1", userRoute);
-// app.use("/api/v1", orderRoute);
+app.use("/api/v1", orderRoute);
 
 // Using Error Middleware
 app.use(errorMiddleware);
