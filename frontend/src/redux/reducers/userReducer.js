@@ -69,21 +69,20 @@ export const authReducer = createReducer(initialState, (builder) => {
       state.isAuthenticated = false;
       state.error = action.payload;
     })
-    // Uncomment and define these if you need them
-    // .addCase('logoutRequest', (state) => {
-    //   state.loading = true;
-    // })
-    // .addCase('logoutSuccess', (state, action) => {
-    //   state.loading = false;
-    //   state.isAuthenticated = false;
-    //   state.message = action.payload;
-    //   state.user = null;
-    // })
-    // .addCase('logoutFail', (state, action) => {
-    //   state.loading = false;
-    //   state.isAuthenticated = true;
-    //   state.error = action.payload;
-    // })
+    .addCase("logoutRequest", (state) => {
+      state.loading = true;
+    })
+    .addCase("logoutSuccess", (state, action) => {
+      state.loading = false;
+      state.isAuthenticated = false;
+      state.message = action.payload;
+      state.user = null;
+    })
+    .addCase("logoutFail", (state, action) => {
+      state.loading = false;
+      state.isAuthenticated = true;
+      state.error = action.payload;
+    })
     .addCase("clearError", (state) => {
       state.error = null;
     })

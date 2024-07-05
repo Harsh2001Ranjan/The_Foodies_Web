@@ -3,7 +3,9 @@ import { motion } from "framer-motion";
 import me from "../../assets/founder.webp";
 import { Link } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
-
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/actions/user";
+//import Loader from "../layout/Loader";
 const Profile = () => {
   const options = {
     initial: {
@@ -14,6 +16,12 @@ const Profile = () => {
       y: 0,
       opacity: 1,
     },
+  };
+  const dispatch = useDispatch();
+  //const { loading, user } = useSelector((state) => state.auth);
+
+  const logoutHandler = () => {
+    dispatch(logout());
   };
   return (
     <section className="profile">
@@ -60,6 +68,7 @@ const Profile = () => {
             delay: 0.3,
           }}
         >
+          onClick={logoutHandler}
           Logout
         </motion.button>
       </main>

@@ -67,7 +67,7 @@ function App() {
 
   return (
     <Router>
-      <Header isAuthenticated={true} />
+      <Header isAuthenticated={isAuthenticated} />
 
       <Routes>
         <Route path="/" element={<Home />} />
