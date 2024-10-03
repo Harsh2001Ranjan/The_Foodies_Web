@@ -1,13 +1,8 @@
 import express from "express";
 import passport from "passport";
 import { logout, myProfile } from "../controllers/user.js";
-//import { isAuthenticated } from "../middlewares/auth.js";
-import {
-  getAdminStats,
-  getAdminUsers,
-  //logout,
-  // myProfile,
-} from "../controllers/user.js";
+
+import { getAdminStats, getAdminUsers } from "../controllers/user.js";
 import { authorizeAdmin, isAuthenticated } from "../middlewares/auth.js";
 
 const router = express.Router();
@@ -19,9 +14,22 @@ router.get(
   })
 );
 
-router.get("/login", passport.authenticate("google"), (req, res, next) => {
-  res.send("Logged In");
-});
+router.get(
+  "/login",
+  // (req, res, next) => {
+  //   res.send("Logged In");
+  // }
+  //////////////**************************
+  ///////////////********* I Think some error is here 36:00 */********************************************************************************************************************* */
+  // passport.authenticate("google", {
+  //   scope: ["profile"],
+  //   successRedirect: process.env.FRONTEND_URL,
+  // })
+  passport.authenticate("google"),
+  (req, res, next) => {
+    res.send("Logged In");
+  }
+);
 
 router.get("/me", isAuthenticated, myProfile);
 
