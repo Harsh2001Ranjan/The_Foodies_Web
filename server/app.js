@@ -20,13 +20,16 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    /////////////////////////////.........................gp
-    cookie: { secure: true },
 
     cookie: {
-      secure: process.env.NODE_ENV === "development" ? false : true,
-      httpOnly: process.env.NODE_ENV === "development" ? false : true,
-      sameSite: process.env.NODE_ENV === "development" ? false : "none",
+      // secure: process.env.NODE_ENV === "development" ? false : true,
+      // httpOnly: process.env.NODE_ENV === "development" ? false : true,
+      // sameSite: process.env.NODE_ENV === "development" ? false : "none",
+      /////////////////////changes from chat gpt for cookie error
+      secure: process.env.NODE_ENV === "production", // secure should be false in development
+      httpOnly: true, // Always keep this true for security
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // 'lax' is fine for development, 'none' is needed for cross-site cookies
+      ///////////////////////till here
     },
   })
 );
@@ -53,7 +56,6 @@ app.use(passport.session());
 app.enable("trust proxy");
 ////////////////////////////////////////////
 connectPassport();
-
 // // Importing Routes
 import userRoute from "./routes/user.js";
 import orderRoute from "./routes/order.js";
