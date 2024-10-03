@@ -22,6 +22,7 @@ router.get(
   //////////////**************************
   ///////////////********* I Think some error is here 36:00 */********************************************************************************************************************* */
   // passport.authenticate("google", {
+  //   scope: ["profile"],
   //   successRedirect: process.env.FRONTEND_URL,
   // })
   passport.authenticate("google"),
