@@ -13,24 +13,29 @@ router.get(
     scope: ["profile"],
   })
 );
-
+/////////////////////////////////////////////////
+// router.get(
+//   "/login",
+//   ///////////////*** I Think some error is here 36:00 /**************************************** */
+//   // passport.authenticate("google", {
+//   //   successRedirect: process.env.FRONTEND_URL,
+//   // })
+//   passport.authenticate("google"),
+//   (req, res, next) => {
+//     res.send("Logged In");
+//   }
+// );
+////////////////////////////////////
 router.get(
   "/login",
-  // (req, res, next) => {
-  //   res.send("Logged In");
-  // }
-  //////////////**************************
-  ///////////////********* I Think some error is here 36:00 */********************************************************************************************************************* */
-  // passport.authenticate("google", {
-  //   scope: ["profile"],
-  //   successRedirect: process.env.FRONTEND_URL,
-  // })
-  passport.authenticate("google"),
-  (req, res, next) => {
-    res.send("Logged In");
+  passport.authenticate("google", { failureRedirect: "/login/failure" }),
+  (req, res) => {
+    // Redirect to the frontend after successful login
+    res.redirect(process.env.FRONTEND_URL);
   }
 );
 
+/////////////////////////////////////////////
 router.get("/me", isAuthenticated, myProfile);
 
 router.get("/logout", logout);

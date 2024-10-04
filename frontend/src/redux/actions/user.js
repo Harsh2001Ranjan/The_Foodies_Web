@@ -38,11 +38,16 @@ export const logout = () => async (dispatch) => {
     dispatch({
       type: "logoutRequest",
     });
-
+    //changed this line
+    // const { data } = await axios.get(`${server}/logout`, {
+    //   withCredentials: true,
+    // });
+    // to
+    //////////////////////////////////////////////
     const { data } = await axios.get(`${server}/logout`, {
       withCredentials: true,
     });
-
+    ////////////////////////////////////////////////////////
     dispatch({
       type: "logoutSuccess",
       payload: data.message,

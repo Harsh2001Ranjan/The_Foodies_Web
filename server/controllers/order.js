@@ -98,6 +98,7 @@
 
 //     await Order.create({
 //       ...orderOptions,
+
 //       paidAt: new Date(Date.now()),
 //       paymentInfo: payment._id,
 //     });
@@ -160,8 +161,7 @@
 //     message: "Status Updated Successfully",
 //   });
 // });
-
-////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 import { asyncError } from "../middlewares/errorMiddleware.js";
 import { Order } from "../models/Order.js";
 import { Payment } from "../models/Payment.js";
@@ -244,15 +244,15 @@ export const paymentVerification = asyncError(async (req, res, next) => {
     orderOptions,
   } = req.body;
 
-  // const body = razorpay_order_id + "|" + razorpay_payment_id;
+  const body = razorpay_order_id + "|" + razorpay_payment_id;
 
-  // const expectedSignature = crypto
-  //   .createHmac("sha256", process.env.RAZORPAY_API_SECRET)
-  //   .update(body)
-  //   .digest("hex");
+  const expectedSignature = crypto
+    .createHmac("sha256", process.env.RAZORPAY_API_SECRET)
+    .update(body)
+    .digest("hex");
 
-  // const isAuthentic = expectedSignature === razorpay_signature;
-  const isAuthentic = true;
+  const isAuthentic = expectedSignature === razorpay_signature;
+
   if (isAuthentic) {
     const payment = await Payment.create({
       razorpay_order_id,
@@ -262,7 +262,6 @@ export const paymentVerification = asyncError(async (req, res, next) => {
 
     await Order.create({
       ...orderOptions,
-      user: "req.user._id",
       paidAt: new Date(Date.now()),
       paymentInfo: payment._id,
     });

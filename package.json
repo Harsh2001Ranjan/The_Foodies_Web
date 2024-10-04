@@ -1,11 +1,12 @@
 {
-  "name": "ecom",
+  "name": "the_foodies_web",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "frontend": "cd frontend && npm start",
-    "backend": "cd server && npm start",
+    "backend":"cd server && npm start",
     "dev": "concurrently \"npm run frontend\" \"npm run backend\""
   },
   "keywords": [],
@@ -13,6 +14,5 @@
   "license": "ISC",
   "dependencies": {
     "concurrently": "^9.0.1"
-  },
-  "description": ""
+  }
 }
