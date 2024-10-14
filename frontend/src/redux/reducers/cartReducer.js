@@ -1,47 +1,100 @@
 import { createReducer, isAction } from "@reduxjs/toolkit";
 import { createAction } from "@reduxjs/toolkit";
-
 const initialState = {
-  //   cartItems: localStorage.getItem("cartItems")
-  //     ? JSON.parse(localStorage.getItem("cartItems"))
-  //     : {
-
-  cartItems: {
-    cheeseBurger: {
-      quantity: 0,
-      price: 200,
-    },
-    vegCheeseBurger: {
-      quantity: 0,
-      price: 500,
-    },
-    burgerWithFries: {
-      quantity: 0,
-      price: 1800,
-    },
-  },
-  //   subTotal: localStorage.getItem("cartPrices")
-  //     ? JSON.parse(localStorage.getItem("cartPrices")).subTotal
-  //     : 0,
-  //   tax: localStorage.getItem("cartPrices")
-  //     ? JSON.parse(localStorage.getItem("cartPrices")).tax
-  //     : 0,
-  //   shippingCharges: localStorage.getItem("cartPrices")
-  //     ? JSON.parse(localStorage.getItem("cartPrices")).shippingCharges
-  //     : 0,
-  //   total: localStorage.getItem("cartPrices")
-  //     ? JSON.parse(localStorage.getItem("cartPrices")).total
-  //     : 0,
-  //   shippingInfo: localStorage.getItem("shippingInfo")
-  //     ? JSON.parse(localStorage.getItem("shippingInfo"))
-  //     : {},
-
-  subTotal: 0,
-  tax: 0,
-  shippingCharges: 0,
-  total: 0,
-  shippingInfo: {},
+  cartItems: localStorage.getItem("cartItems")
+    ? {
+        cheeseBurger: {
+          quantity:
+            JSON.parse(localStorage.getItem("cartItems")).cheeseBurger
+              ?.quantity || 0,
+          price: 200,
+        },
+        vegCheeseBurger: {
+          quantity:
+            JSON.parse(localStorage.getItem("cartItems")).vegCheeseBurger
+              ?.quantity || 0,
+          price: 500,
+        },
+        burgerWithFries: {
+          quantity:
+            JSON.parse(localStorage.getItem("cartItems")).burgerWithFries
+              ?.quantity || 0,
+          price: 1800,
+        },
+      }
+    : {
+        cheeseBurger: {
+          quantity: 0,
+          price: 200,
+        },
+        vegCheeseBurger: {
+          quantity: 0,
+          price: 500,
+        },
+        burgerWithFries: {
+          quantity: 0,
+          price: 1800,
+        },
+      },
+  subTotal: localStorage.getItem("cartPrices")
+    ? JSON.parse(localStorage.getItem("cartPrices")).subTotal
+    : 0,
+  tax: localStorage.getItem("cartPrices")
+    ? JSON.parse(localStorage.getItem("cartPrices")).tax
+    : 0,
+  shippingCharges: localStorage.getItem("cartPrices")
+    ? JSON.parse(localStorage.getItem("cartPrices")).shippingCharges
+    : 0,
+  total: localStorage.getItem("cartPrices")
+    ? JSON.parse(localStorage.getItem("cartPrices")).total
+    : 0,
+  shippingInfo: localStorage.getItem("shippingInfo")
+    ? JSON.parse(localStorage.getItem("shippingInfo"))
+    : {},
 };
+
+////////////////////////////////////////////////////////////////////////////////////
+// const initialState = {
+//   cartItems: localStorage.getItem("cartItems")
+//     ? JSON.parse(localStorage.getItem("cartItems"))
+//     : {
+//         // cartItems: {
+//         cheeseBurger: {
+//           quantity: 0,
+//           price: 200,
+//         },
+//         vegCheeseBurger: {
+//           quantity: 0,
+//           price: 500,
+//         },
+//         burgerWithFries: {
+//           quantity: 0,
+//           price: 1800,
+//         },
+//       },
+//   subTotal: localStorage.getItem("cartPrices")
+//     ? JSON.parse(localStorage.getItem("cartPrices")).subTotal
+//     : 0,
+//   tax: localStorage.getItem("cartPrices")
+//     ? JSON.parse(localStorage.getItem("cartPrices")).tax
+//     : 0,
+//   shippingCharges: localStorage.getItem("cartPrices")
+//     ? JSON.parse(localStorage.getItem("cartPrices")).shippingCharges
+//     : 0,
+//   total: localStorage.getItem("cartPrices")
+//     ? JSON.parse(localStorage.getItem("cartPrices")).total
+//     : 0,
+//   shippingInfo: localStorage.getItem("shippingInfo")
+//     ? JSON.parse(localStorage.getItem("shippingInfo"))
+//     : {},
+
+//   // subTotal: 0,
+//   // tax: 0,
+//   // shippingCharges: 0,
+//   // total: 0,
+//   // shippingInfo: {},
+// };
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // export const cartReducer = createReducer(initialState, {
 //   cheeseBurgerIncrement: (state) => {
@@ -215,6 +268,17 @@ export const orderReducer = createReducer({}, (builder) => {
       state.loading = false;
       state.error = action.payload;
     })
+    .addCase("paymentVerificationRequest", (state) => {
+      state.loading = true;
+    })
+    .addCase("paymentVerificationSuccess", (state, action) => {
+      state.loading = false;
+      state.message = action.payload;
+    })
+    .addCase("paymentVerificationFail", (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    })
     .addCase("clearMessage", (state) => {
       state.message = null;
     })
@@ -244,3 +308,19 @@ export const burgerWithFriesDecrement = createAction(
 );
 
 export const calculatePrice = createAction("calculatePrice");
+
+////////////////////////////////////
+export const createOrderRequest = createAction("createOrderRequest");
+export const createOrderSuccess = createAction("createOrderSuccess");
+export const createOrderFail = createAction("createOrderFail");
+
+export const paymentVerificationRequest = createAction(
+  "paymentVerificationRequest"
+);
+export const paymentVerificationSuccess = createAction(
+  "paymentVerificationSuccess"
+);
+export const paymentVerificationFail = createAction("paymentVerificationFail");
+
+export const clearMessage = createAction("clearMessage");
+export const clearError = createAction("clearError");

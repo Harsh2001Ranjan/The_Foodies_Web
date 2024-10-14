@@ -42,59 +42,58 @@ const ConfirmOrder = () => {
           total
         )
       );
+    } else {
+      //     // createorderonline
+
+      const {
+        data: { order, orderOptions },
+      } = await axios.post(
+        `${server}/createorderonline`,
+        {
+          shippingInfo,
+          orderItems: cartItems,
+          paymentMethod,
+          itemsPrice: subTotal,
+          taxPrice: tax,
+          shippingCharges,
+          totalAmount: total,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+
+      const options = {
+        key: "rzp_test_x74afcIF3NAVku",
+        amount: order.amount,
+        currency: "INR",
+        name: "MBA Burger Wala",
+        description: "Burger App",
+        order_id: order.id,
+        handler: function (response) {
+          const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
+            response;
+
+          dispatch(
+            paymentVerification(
+              razorpay_payment_id,
+              razorpay_order_id,
+              razorpay_signature,
+              orderOptions
+            )
+          );
+        },
+
+        theme: {
+          color: "#9c003c",
+        },
+      };
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
     }
-    //else {
-    //     // createorderonline
-
-    //     const {
-    //       data: { order, orderOptions },
-    //     } = await axios.post(
-    //       `${server}/createorderonline`,
-    //       {
-    //         shippingInfo,
-    //         orderItems: cartItems,
-    //         paymentMethod,
-    //         itemsPrice: subTotal,
-    //         taxPrice: tax,
-    //         shippingCharges,
-    //         totalAmount: total,
-    //       },
-    //       {
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //         withCredentials: true,
-    //       }
-    //     );
-
-    //     const options = {
-    //       key: "rzp_test_RvbyUfMdfeVPIE",
-    //       amount: order.amount,
-    //       currency: "INR",
-    //       name: "MBA Burger Wala",
-    //       description: "Burger App",
-    //       order_id: order.id,
-    //       handler: function (response) {
-    //         const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
-    //           response;
-
-    //         dispatch(
-    //           paymentVerification(
-    //             razorpay_payment_id,
-    //             razorpay_order_id,
-    //             razorpay_signature,
-    //             orderOptions
-    //           )
-    //         );
-    //      },
-
-    //       theme: {
-    //         color: "#9c003c",
-    //       },
-    //     };
-    //     const razorpay = new window.Razorpay(options);
-    //     razorpay.open();
-    //   }
   };
 
   useEffect(() => {

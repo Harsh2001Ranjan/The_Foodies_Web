@@ -76,6 +76,7 @@ export const authReducer = createReducer(initialState, (builder) => {
     .addCase("logoutSuccess", (state, action) => {
       state.loading = false;
       state.isAuthenticated = false;
+
       state.message = action.payload;
       state.user = null;
     })
